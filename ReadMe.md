@@ -1,0 +1,1 @@
+This is a Agentic AI project sample with MCP server
