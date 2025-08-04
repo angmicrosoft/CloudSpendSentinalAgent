@@ -8,8 +8,8 @@ using Azure;
 // Create an IChatClient
 IChatClient client =
     new ChatClientBuilder(
-        new AzureOpenAIClient(new Uri("<your-endpoint>"), 
-        new AzureKeyCredential("<your-api-key>"))
+        new AzureOpenAIClient(new Uri("https://tguru-dev-openai-0.openai.azure.com/"),
+        new DefaultAzureCredential(new DefaultAzureCredentialOptions {  TenantId = "16b3c013-d300-468d-ac64-7eda0820b6d3" }))
         .GetChatClient("gpt-4o").AsIChatClient())
     .UseFunctionInvocation()
     .Build();
