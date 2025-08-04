@@ -85,7 +85,7 @@ namespace Api.Controllers
             //var messageContentList = messages.
             await foreach (var update in agent.InvokeStreamingAsync(messages))
             {
-                var chunk = update?.ToString();
+                var chunk = update?.Message?.Content?.ToString();
                 if (!string.IsNullOrEmpty(chunk))
                 {
                     await Response.WriteAsync($"data: {chunk}\n\n");

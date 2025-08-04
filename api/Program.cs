@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add Semantic Kernel to DI (use Kernel instead of IKernel)
 var configuration = builder.Configuration;
 var kernelBuilder = Kernel.CreateBuilder();
-var s_azureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions {  ManagedIdentityClientId = configuration["AzureAD:ManagedIdentityClientId"] });
+var s_azureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions {  TenantId = configuration["AzureAD:TenantId"] });
 
 var azureOpenAIServiceEndpoint = configuration.GetSection("AzureOpenAI:Endpoint").Value;
 ArgumentNullException.ThrowIfNull(azureOpenAIServiceEndpoint, nameof(azureOpenAIServiceEndpoint));
