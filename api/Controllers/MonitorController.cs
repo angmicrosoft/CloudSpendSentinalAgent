@@ -57,7 +57,10 @@ namespace Api.Controllers
 
             // 2. Get all available tools from the MCP server
             IList<McpClientTool> tools = await mcpClient.ListToolsAsync();
-            _kernel.Plugins.AddFromFunctions("Tools", tools.Select(aiFunction => aiFunction.AsKernelFunction()));
+            if (tools != null && tools.Count > 0 && _kernel.Plugins != null && !_kernel.Plugins.Contains("Tools"))
+            {
+                _kernel.Plugins.AddFromFunctions("Tools", tools.Select(aiFunction => aiFunction.AsKernelFunction()));
+            }
 
             // 3. Enable automatic function calling
             var executionSettings = new OpenAIPromptExecutionSettings
@@ -88,7 +91,7 @@ namespace Api.Controllers
                 var chunk = update?.Message?.Content?.ToString();
                 if (!string.IsNullOrEmpty(chunk))
                 {
-                    await Response.WriteAsync($"data: {chunk}\n\n");
+                    await Response.WriteAsync($"{chunk}");
                     await Response.Body.FlushAsync();
                 }
             }
